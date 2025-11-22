@@ -1,0 +1,8 @@
+Iconos vectorizados: 
+npm install react-native-vector-icons
+npm install --save-dev @types/react-native-vector-icons
+
+SVGs:
+npm install react-native-svg
+
+npm install @react-navigation/native-stack

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "usuario": "matias",
+    "password": "1234",
+    "rol": "Administrador",
+    "nombre": "Bello Chavez, Matias",
+    "area": "Dirección General",
+    "dni": "71654892",
+    "edad": 22,
+    "genero": "Masculino",
+    "telefono": "987456321",
+    "correo": "matias.bello@sanfelipesac.com",
+    "direccion": "Av. Los Próceres 123, Surco, Lima"
+  },
+  {
+    "id": 2,
+    "usuario": "jorge",
+    "password": "1234",
+    "rol": "Supervisor de Obra",
+    "nombre": "Castañeda Bardales, Jorge Elias",
+    "area": "Construcción",
+    "dni": "72694851",
+    "edad": 21,
+    "genero": "Masculino",
+    "telefono": "998321654",
+    "correo": "jorge.castaneda@sanfelipesac.com",
+    "direccion": "Calle San Marcos 234, San Juan de Lurigancho, Lima"
+  },
+  {
+    "id": 3,
+    "usuario": "gian",
+    "password": "1234",
+    "rol": "Residente de Obra",
+    "nombre": "Vilcamiche Chávez, Gian Carlo",
+    "area": "Construcción",
+    "dni": "72654321",
+    "edad": 20,
+    "genero": "Masculino",
+    "telefono": "987654321",
+    "correo": "gian.vilcamiche@sanfelipesac.com",
+    "direccion": "Av. Los Ingenieros 456, San Martín de Porres, Lima"
+  },
+  {
+    "id": 4,
+    "usuario": "fernando",
+    "password": "1234",
+    "rol": "Contabilidad",
+    "nombre": "Sotelo Afa, Fernando Adrian",
+    "area": "Finanzas",
+    "dni": "73562145",
+    "edad": 23,
+    "genero": "Masculino",
+    "telefono": "912458796",
+    "correo": "fernando.sotelo@sanfelipesac.com",
+    "direccion": "Jr. Callao 987, Cercado de Lima"
+  },
+  {
+    "id": 5,
+    "usuario": "javier",
+    "password": "1234",
+    "rol": "Logística",
+    "nombre": "Saravia Garcia, Javier Marlex",
+    "area": "Administración",
+    "dni": "74859612",
+    "edad": 26,
+    "genero": "Masculino",
+    "telefono": "965874123",
+    "correo": "javier.saravia@sanfelipesac.com",
+    "direccion": "Av. La Marina 1120, Pueblo Libre, Lima"
+  }
+]
