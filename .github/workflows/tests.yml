@@ -23,32 +23,28 @@ jobs:
       - name: 🟢 Configurar Node.js (Versión 18+)
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Usamos una versión LTS reciente
+          node-version: '20'
 
       - name: ⚙️ Instalar dependencias del Backend
-        # Se mueve al directorio del Backend y usa npm/yarn según lo que uses. Asumo npm por el package.json
         run: cd Backend-Inmobiliaria && npm install
         
-      # El Backend usa TypeScript, la compilación verifica el tipado y la sintaxis.
       - name: 🕵️‍♀️ Verificar Tipado (tsc) y Compilar
-        run: cd Backend-Inmobiliaria && npm run build # Asumo que tienes un script 'build' en package.json
+        run: cd Backend-Inmobiliaria && npm run build
         
-      # Si tienes pruebas unitarias en el Backend (ej: Jest, Supertest)
       - name: ✅ Ejecutar Pruebas del Backend
-        # Asegúrate de que este comando esté definido en tu package.json del Backend
         run: cd Backend-Inmobiliaria && npm test
         
       - name: 🧹 Ejecutar Linter (Opcional, si usas ESLint/TSLint)
-        run: cd Backend-Inmobiliaria && npm run lint # Asumo un script 'lint'
+        run: cd Backend-Inmobiliaria && npm run lint
 
   # ======================================================
   # JOB 2: VALIDACIÓN DEL FRONTEND (React Native + Expo)
+  # El Job rápido de pruebas de JS/TS
   # ======================================================
   frontend_ci:
-    name: Frontend - Pruebas y Compilación (Movil)
+    name: Frontend - Pruebas y Linter (Movil)
     runs-on: ubuntu-latest
-    # Este job se ejecuta en paralelo con el backend_ci
-
+    
     steps:
       - name: 📦 Checkout del código
         uses: actions/checkout@v4
@@ -59,29 +55,45 @@ jobs:
           node-version: '20'
 
       - name: ⚙️ Instalar dependencias del Movil
-        # Usa yarn si tu lockfile es yarn.lock
         run: cd Movil-Inmobiliaria && npm install
 
       - name: ✅ Ejecutar Pruebas Unitarias del Movil (Jest)
-        # Es crucial para validar los componentes y la lógica de estado (Zustand)
         run: cd Movil-Inmobiliaria && npm test
         
       - name: 🧹 Ejecutar Linter
-        run: cd Movil-Inmobiliaria && npm run lint # Asumo un script 'lint'
+        run: cd Movil-Inmobiliaria && npm run lint
 
-      # --- Verificación de Tipado (TypeScript) ---
-      # En proyectos Expo/RN con TypeScript, puedes verificar el tipado sin necesidad de compilar un binario.
       - name: 🕵️‍♀️ Verificar Tipado del Frontend
-        run: cd Movil-Inmobiliaria && npx tsc --noEmit # 'noEmit' verifica solo los errores sin generar JS
+        run: cd Movil-Inmobiliaria && npx tsc --noEmit
 
-      # --- Verificación de Compilación Nativa (Android) ---
-      # Esto asegura que el código nativo y las dependencias (Expo) están bien.
+  # ======================================================
+  # JOB 3: VERIFICACIÓN DE COMPILACIÓN ANDROID
+  # (Lento, solo se ejecuta si el JS/TS pasó)
+  # ======================================================
+  android_build_check:
+    name: 📱 Verificación de Compilación Android
+    runs-on: ubuntu-latest
+    # ESTO ES LO CLAVE: Solo se ejecuta si frontend_ci pasó con éxito.
+    needs: [frontend_ci] 
+
+    steps:
+      - name: 📦 Checkout del código
+        uses: actions/checkout@v4
+
+      - name: 🟢 Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: ⚙️ Instalar dependencias del Movil (Nuevamente)
+        run: cd Movil-Inmobiliaria && npm install
+        
       - name: ☕ Configurar Java (para Android)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
           
-      - name: 🔨 Compilar Build de Android con Gradle (solo para verificar)
+      - name: 🔨 Compilar Build de Android con Gradle
         # Esto valida que no haya errores de compilación nativa en Android.
         run: cd Movil-Inmobiliaria/android && ./gradlew assembleDebug
