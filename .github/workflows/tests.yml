@@ -62,4 +62,4 @@ jobs:
         # 'npx tsc --noEmit' verifica que todo el código TS de React Native esté correctamente tipado.
         run: cd Movil-Inmobiliaria && npx tsc --noEmit
 
-      # NOTA: Se han quitado los pasos 'npm test', 'npm run lint' y la compilación de Android para evitar fallos...
+      # NOTA: Se han quitado los pasos 'npm test', 'npm run lint' y la compilación de Android para evitar fallos.
