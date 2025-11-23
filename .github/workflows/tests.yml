@@ -1,4 +1,4 @@
-name: CI Revisada - San Felipe Inmobiliaria
+name: CI Frontend Móvil - San Felipe Inmobiliaria
 
 on:
   push:
@@ -10,42 +10,12 @@ on:
 
 jobs:
   # ======================================================
-  # JOB 1: VALIDACIÓN DEL BACKEND (Express + TypeScript)
-  # Objetivo: Instalar deps y verificar la sintaxis de TypeScript.
-  # ======================================================
-  backend_ci:
-    name: Backend - Instalación y Tipado
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 📦 Checkout del código
-        uses: actions/checkout@v4
-
-      - name: 🟢 Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' # Usa la versión mínima 18+
-
-      - name: ⚙️ Instalar dependencias del Backend
-        # Esto valida que el package.json sea válido y descarga node_modules.
-        run: cd Backend-Inmobiliaria && npm install
-        
-      - name: 🕵️‍♀️ Verificar Tipado (tsc --noEmit)
-        # Este comando usa el tsconfig.json y solo comprueba errores sin generar archivos JS.
-        # Es la forma más fiable de verificar el código TypeScript.
-        run: cd Backend-Inmobiliaria && npx tsc --noEmit
-        
-      # NOTA: Los pasos 'npm test', 'npm run build' y 'npm run lint' han sido OMITIDOS 
-      # para asegurar el éxito del CI hasta que los scripts estén 100% configurados.
-        
-  # ======================================================
-  # JOB 2: VALIDACIÓN DEL FRONTEND (React Native + Expo)
+  # JOB 1: VALIDACIÓN DEL FRONTEND (React Native + Expo)
   # Objetivo: Instalar deps y verificar la sintaxis de TypeScript.
   # ======================================================
   frontend_ci:
-    name: Frontend - Instalación y Tipado
+    name: Frontend - Instalación y Tipado (Movil)
     runs-on: ubuntu-latest
-    # Se ejecuta en paralelo para ahorrar tiempo.
     
     steps:
       - name: 📦 Checkout del código
@@ -57,10 +27,11 @@ jobs:
           node-version: '20'
 
       - name: ⚙️ Instalar dependencias del Movil
+        # Se ejecuta dentro de la carpeta del proyecto móvil
         run: cd Movil-Inmobiliaria && npm install
 
       - name: 🕵️‍♀️ Verificar Tipado del Frontend
-        # npx tsc --noEmit verifica que todo el código TS de React Native esté correcto.
+        # npx tsc --noEmit verifica que todo el código TS esté correcto sin generar archivos.
         run: cd Movil-Inmobiliaria && npx tsc --noEmit
         
-      # NOTA: Se ha quitado 'npm test', 'npm run lint' y la Compilación de Android.
+      # NOTA: Se han quitado 'npm test', 'npm run lint' y cualquier paso nativo.
